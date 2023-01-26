@@ -15,6 +15,7 @@ cat << EOF
 EOF
 
 git ls-tree -r --name-only HEAD -- reports/ \
+    | grep -E '.*\.html$' \
     | while read report; do
     echo $(git log --pretty=format:%as -n 1 -- $report) $report;
 done \
