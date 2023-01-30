@@ -16,12 +16,12 @@ EOF
 
 git ls-tree -r --name-only HEAD -- reports/ \
     | grep -E '.*\.html$' \
-    | while read report; do
-    echo $(git log --pretty=format:%as -n 1 -- $report) $report;
+    | while read -r report; do
+    echo "$(git log --pretty=format:%as -n 1 -- "$report") $report";
 done \
-    | sort -k1 \
-    | while read ts filename; do
-    echo "<tr><td>$ts</td><td><a href="$filename">$(basename "$filename")</a></td></tr>"
+    | sort -r -k1 \
+    | while read -r ts filename; do
+    echo "<tr><td>$ts</td><td><a href=\"$filename\">$(basename "$filename")</a></td></tr>"
 done
 cat << EOF
 </table>
